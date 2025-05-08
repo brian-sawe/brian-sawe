@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: black;
+    }
+    #display {
+      color: white;
+      width: 200px;
+      height: 50px;
+      border: 1px solid gray;
+      margin-bottom: 20px;
+      text-align: right;
+      padding-right: 10px;
+      font-size: 50px;
+      background-color: blue;
+      
+    }
+    button {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      background-color: rgb(51, 51, 51);
+      color: white;
+      border-radius: 60px;
+      border: none;
+      cursor: pointer;
+      margin-right: 5px;
+      margin-bottom: 15px;
+      transition: all 0.2s ease-in-out;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    }
+    h1 {
+      color: white;
+      font-size: 50px;
+
+    }
+    #clear {
+      height: 50px;
+      width: 100px;
+
+    }
+    #clear:hover {
+      background-color: yellow;
+      border-radius: 60px;
+      color: black;
+    }
+    #sign {
+      background-color: orange;
+    }
+    button:hover {
+      border-radius: 10px;
+      background-color: rgb(51, 51, 51);
+      transform: scale(1.05);
+    }
+    button:active {
+      transform: scale(0.95);
+      background-color: #ddd;
+    }
+    </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let Calculation = null;
+      let display = document.querySelector('#display');
+      display.innerHTML = localStorage.getItem('display') || '';
+      document.querySelectorAll('button').forEach(button => {
+        button.onclick = function() {
+          const buttonValue = this.innerHTML;
+          
+          if (buttonValue === '=') {
+            try {
+              const calculation = eval(display.innerHTML);
+              display.innerHTML = calculation;
+              Calculation = calculation;
+              localStorage.setItem('display', calculation);
+            } catch (error) {
+              document.querySelector('#display').innerHTML = 'Error';
+            }
+            
+          } else if (buttonValue === 'Clear') {
+            display.innerHTML = '';
+            Calculation = null;
+            localStorage.removeItem('display');
+          } else {
+            if (Calculation !== null && !isNaN(buttonValue) && buttonValue !== '.' && display.innerHTML !== Calculation.toString()) {
+              display.innerHTML += buttonValue;
+            } else {
+              display.innerHTML += buttonValue;
+            }
+            
+          }
+          
+          
+        }
+        
+      });
+    })
+  </script>
+</head>
+<body>
+  
+  <h1>Simple Calculator</h1>
+  <div id="display">
+
+  </div>
+  <div>
+    <button data-page="button1">1</button>
+    <button data-page="button2">2</button>
+    <button data-page="button3">3</button>
+    <button data-page="button+" id="sign">+</button>
+  </div>
+  <div>
+    <button data-page="button4">4</button>
+    <button data-page="button5">5</button>
+    <button data-page="button6">6</button>
+    <button data-page="button-" id="sign">-</button>
+  </div>
+  <div>
+    <button data-page="button7">7</button>
+    <button data-page="button8">8</button>
+    <button data-page="button9">9</button>
+    <button data-page="button*" id="sign">*</button>
+  </div>
+  <div>
+    <button data-page="button1">0</button>
+    <button data-page="button1">.</button>
+    <button data-page="button1">=</button>
+    <button data-page="button1" id="sign">/</button>
+  </div>
+  <div>
+    <button id="clear">Clear</button>
+
+    </div>
+  
+</body>
+</html>
