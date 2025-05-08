@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>React app</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('#advice').onclick = function () {
+        fetch("https://api.adviceslip.com/advice")
+       .then(response => response.json())
+       .then(data => {
+        const advice = data.slip.advice;
+        document.querySelector('#give').innerHTML = advice;
+        
+        
+
+       })
+       .catch (error => {
+        console.log('Error:', error);
+       });
+       
+      }
+       
+    });
+  </script>
+</head>
+<body class="bg-gray-100">
+  <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+    <div class="text-center mb-6">
+      <img src="images/logo.jpeg" alt="React Image" class="w-25 h-25 mx-auto rounded-full mb-4">
+    <div id="title" class="text-2xl font-bold text-gray-800 mb-2">Hey Snowflake!</div>
+    <div class="text-gray-600 mb-4 font-extrabold">Glad to see you around.
+      Press that button to get more advices.Feel loved.<span class="text-yellow-400 text-2xl">Inshallah!!</span></div>
+    </div>
+    
+      <div id="give" class="p-4 mb-6 bg-gray-50 rounded-lg text-gray-700 min-h-20"></div>
+     <button id="advice" class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white 
+     font-medium rounded-lg transition duration-200">Another Advice Please !!</button> 
+  </div>
+  
+</body>
+</html>
